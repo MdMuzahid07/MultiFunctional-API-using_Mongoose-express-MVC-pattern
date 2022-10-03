@@ -1,12 +1,12 @@
-const express = require('express');
-const { addTour, getTour } = require('../../../controllers/tours/tours.controller');
+const express = require("express");
+const { addTour, getTour, updateATour, deleteATour } = require('../../../controllers/tours/tours.controller');
 const router = express.Router();
 
 
 router.route("/")
     .get(getTour)
     .post(addTour)
-    .patch()
-    .delete()
+    .patch(updateATour)
+    .delete(deleteATour)
 
 module.exports = router;
