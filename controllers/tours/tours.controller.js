@@ -10,17 +10,27 @@ module.exports.getTour = (req, res, next) => {
     })
 }
 
-module.exports.addTour = (req, res, next) => {
+module.exports.addTour = async (req, res, next) => {
 
-    // we can use can or create method to add data on database
-    const tour = new Tours(req.body);
+    try {
+        // we can use can or create method to add data on database
+        const tour = new Tours(req.body);
 
-    tour.save();
+        const result = await tour.save();
 
 
-    res.status(200).send({
-        success: true,
-        message: "success",
-        data: req.body
-    })
+        res.status(200).send({
+            success: true,
+            message: "success",
+            data: result
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "data not inserted",
+            error: error.message
+        })
+    }
+
+
 }
