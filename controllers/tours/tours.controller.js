@@ -4,7 +4,12 @@ const { tourSchema } = require("../../utils/Schema");
 module.exports.getTour = async (req, res, next) => {
     try {
 
-        const result = await Tours.find({});
+        // const result = await Tours.find({ _id: "633db40d498db811c47a429c" });
+        // we can use or operator in mongodb in different syntax
+        // const result = await Tours.find({ $or: [{ _id: "633db40d498db811c47a429c" }, { name: "cox's bazar family tour" }] });
+
+        // to show specific data given from query
+        const result = await Tours.find({}, "name cost");
 
         res.status(200).send({
             success: true,
