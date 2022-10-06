@@ -69,6 +69,30 @@ module.exports.getTourByQuery = async (req, res, next) => {
     }
 };
 
+
+module.exports.getCheapestTourBySort = async (req, res, next) => {
+    try {
+        console.log("routed heated")
+
+        // to show specific data given from query
+        const result = await Tours.find({}).sort({ cost: 1 }).limit(3);
+
+        res.status(200).send({
+            success: true,
+            message: "success",
+            data: result
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "data not found",
+            error: error.message
+        })
+    }
+};
+
+
+
 module.exports.addTour = async (req, res, next) => {
 
     try {
