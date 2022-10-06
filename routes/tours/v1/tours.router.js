@@ -1,6 +1,8 @@
 const express = require("express");
-const { addTour, getTour, updateATour, deleteATour } = require('../../../controllers/tours/tours.controller');
+const { addTour, updateATour, deleteATour, getTour, getTourById } = require('../../../controllers/tours/tours.controller');
 const router = express.Router();
+
+router.route("/:id").get(getTourById)
 
 
 router.route("/")
@@ -9,6 +11,6 @@ router.route("/")
     .patch(updateATour)
     .delete(deleteATour)
 
-router.route("/:id").get(getTour)
+
 
 module.exports = router;
