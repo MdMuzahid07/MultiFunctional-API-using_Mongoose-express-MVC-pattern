@@ -45,6 +45,30 @@ module.exports.getTourById = async (req, res, next) => {
     }
 };
 
+module.exports.getTourByQuery = async (req, res, next) => {
+    try {
+
+        const query = req.query;
+        console.log(query)
+
+
+        // to show specific data given from query
+        const result = await Tours.find({}, "name image");
+
+        res.status(200).send({
+            success: true,
+            message: "success",
+            data: result
+        })
+    } catch (error) {
+        res.status(400).send({
+            success: false,
+            message: "data not found",
+            error: error.message
+        })
+    }
+};
+
 module.exports.addTour = async (req, res, next) => {
 
     try {
