@@ -3,10 +3,9 @@ const { addTour, updateATour, deleteATour, getTour, getTourById, getTourByQuery,
 const router = express.Router();
 
 
-router.route("/cheapest").get(getCheapestTourBySort)
-router.route("/:id").get(getTourById)
-router.route("/").get(getTourByQuery)
-
+router.route("/cheapest").get(getCheapestTourBySort);
+router.route("/:id").get(getTourById);
+router.route("/").get(getTourByQuery);
 
 router.route("/")
     .get(getTour)

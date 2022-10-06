@@ -1,10 +1,10 @@
+const { getTourService } = require("../../services/product.services");
 const Tours = require("../../utils/Model");
 
 module.exports.getTour = async (req, res, next) => {
     try {
 
-        const result = await Tours.find({});
-
+        const result = await getTourService();
 
         res.status(200).send({
             success: true,
@@ -118,7 +118,12 @@ module.exports.addTour = async (req, res, next) => {
 
 module.exports.updateATour = async (req, res, next) => {
     try {
-        const result = await "data found"
+
+        const { id } = req.params;
+
+        // const result = await Tours.find({ _id: id });
+        //using mongoose
+        const result = await Tours.findById(id)
 
         res.status(200).send({
             success: true,
