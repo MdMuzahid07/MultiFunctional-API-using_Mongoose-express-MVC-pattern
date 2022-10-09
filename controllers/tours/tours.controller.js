@@ -3,15 +3,19 @@ const Tours = require("../../utils/Model");
 
 module.exports.getTour = async (req, res, next) => {
     try {
-        const queryObject = { ...req.query };
+        const filterUsingQuery = { ...req.query };
 
         // sort, page, limit => exclude
         const excludeFields = ["sort", "page", "limit"];
-        excludeFields.forEach(field => delete queryObject[field]);
-        console.log("main object", req.query);
-        console.log("exclude object", queryObject);
+        excludeFields.forEach(field => delete filterUsingQuery[field]);
 
-        const result = await Tours.find(queryObject);
+        const queries = {};
+        if (req.query.sort) {
+            const sortBy = req.query.sort;
+            console.log(sortBy)
+        }
+
+        const result = await Tours.find({}).sort("status cost");
 
         res.status(200).send({
             success: true,
