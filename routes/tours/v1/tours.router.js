@@ -11,9 +11,8 @@ router.route("/")
     .get(getTour)
     .post(addTour)
     .patch(updateATour)
-router.route("/").get(getTourByQuery);
-
-router.route("/:id").get(visitCount, getTourById)
-router.route("/:id").delete(deleteATour);
+router.route("/:id")
+    .get(visitCount, getTourById)
+    .delete(deleteATour);
 
 module.exports = router;

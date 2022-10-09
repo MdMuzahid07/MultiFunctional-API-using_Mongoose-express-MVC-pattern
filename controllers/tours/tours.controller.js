@@ -3,8 +3,15 @@ const Tours = require("../../utils/Model");
 
 module.exports.getTour = async (req, res, next) => {
     try {
+        const queryObject = { ...req.query };
 
-        const result = await getTourService();
+        // sort, page, limit => exclude
+        const excludeFields = ["sort", "page", "limit"];
+        excludeFields.forEach(field => delete queryObject[field]);
+        console.log("main object", req.query);
+        console.log("exclude object", queryObject);
+
+        const result = await Tours.find(queryObject);
 
         res.status(200).send({
             success: true,
@@ -40,29 +47,29 @@ module.exports.getTourById = async (req, res, next) => {
     }
 };
 
-module.exports.getTourByQuery = async (req, res, next) => {
-    try {
+// module.exports.getTourByQuery = async (req, res, next) => {
+//     try {
 
-        const query = req.query;
-        console.log(query)
+//         const query = req.query;
+//         console.log(query)
 
 
-        // to show specific data given from query
-        const result = await Tours.find({}, "name image");
+//         // to show specific data given from query
+//         const result = await Tours.find({}, "name image");
 
-        res.status(200).send({
-            success: true,
-            message: "success",
-            data: result
-        })
-    } catch (error) {
-        res.status(400).send({
-            success: false,
-            message: "data not found",
-            error: error.message
-        })
-    }
-};
+//         res.status(200).send({
+//             success: true,
+//             message: "success",
+//             data: result
+//         })
+//     } catch (error) {
+//         res.status(400).send({
+//             success: false,
+//             message: "data not found",
+//             error: error.message
+//         })
+//     }
+// };
 
 
 module.exports.getCheapestTourBySort = async (req, res, next) => {
