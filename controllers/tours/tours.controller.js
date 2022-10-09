@@ -15,7 +15,12 @@ module.exports.getTour = async (req, res, next) => {
             queries.sortBy = sortBy;
         }
 
-        const result = await Tours.find({}).sort(queries.sortBy);
+        if (req.query.fields) {
+            const fields = req.query.fields.split(",").join(" ");
+            queries.fields = fields;
+        }
+
+        const result = await Tours.find(filterUsingQuery).sort(queries.sortBy).select(queries.fields);
 
         res.status(200).send({
             success: true,
