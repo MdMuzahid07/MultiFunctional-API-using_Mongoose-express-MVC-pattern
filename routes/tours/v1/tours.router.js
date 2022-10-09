@@ -5,13 +5,13 @@ const router = express.Router();
 
 router.route("/cheapest").get(getCheapestTourBySort);
 router.route("/:id").get(getTourById);
-router.route("/").get(getTourByQuery);
+// router.route("/").get(getTourByQuery);
+router.route("/:id").delete(deleteATour);
 
 router.route("/")
     .get(getTour)
     .post(addTour)
     .patch(updateATour)
-    .delete(deleteATour)
 
 
 

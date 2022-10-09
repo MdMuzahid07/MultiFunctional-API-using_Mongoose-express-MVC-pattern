@@ -141,7 +141,9 @@ module.exports.updateATour = async (req, res, next) => {
 
 module.exports.deleteATour = async (req, res, next) => {
     try {
-        const result = await "a date deleted";
+        const { id } = req.params;
+
+        const result = await Tours.deleteOne({ _id: id });
 
         res.status(200).send({
             success: true,
