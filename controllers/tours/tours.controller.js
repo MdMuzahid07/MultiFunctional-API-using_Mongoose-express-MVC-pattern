@@ -1,3 +1,4 @@
+const { query } = require("express");
 const { getTourService } = require("../../services/product.services");
 const Tours = require("../../utils/Model");
 
@@ -20,7 +21,16 @@ module.exports.getTour = async (req, res, next) => {
             queries.fields = fields;
         }
 
-        const result = await Tours.find(filterUsingQuery).sort(queries.sortBy).select(queries.fields);
+        if (req.query.page) {
+            const { page = 1, limit = 10 } = req.query;
+
+            const skip = (page - 1) * Number(limit);
+
+            queries.skip = skip;
+            queries.limit = Number(limit);
+        }
+
+        const result = await Tours.find(filterUsingQuery).skip(queries.skip).limit(queries.limit).select(queries.fields).sort(queries.sortBy);
 
         res.status(200).send({
             success: true,
