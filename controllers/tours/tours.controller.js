@@ -11,11 +11,11 @@ module.exports.getTour = async (req, res, next) => {
 
         const queries = {};
         if (req.query.sort) {
-            const sortBy = req.query.sort;
-            console.log(sortBy)
+            const sortBy = req.query.sort.split(",").join(' ');
+            queries.sortBy = sortBy;
         }
 
-        const result = await Tours.find({}).sort("status cost");
+        const result = await Tours.find({}).sort(queries.sortBy);
 
         res.status(200).send({
             success: true,
